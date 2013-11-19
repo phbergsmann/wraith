@@ -1,0 +1,17 @@
+Manifest.txt
+PostInstall.txt
+Rakefile
+create_gallery.rb
+nojs.js
+snap.js
+bin/wraith
+lib/wraith.rb
+lib/wraith/cli.rb
+lib/wraith/wraith.rb
+lib/wraith/wraith_manager.rb
+script/console
+script/destroy
+script/generate
+gallery/bootstrap.min.css
+gallery/gallery.css
+gallery/gallery_template.erb
