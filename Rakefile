@@ -1,43 +1,27 @@
-$:.unshift File.join(File.dirname(__FILE__), 'lib')
+require 'rubygems'
+gem 'hoe', '>= 2.1.0'
+require 'hoe'
+require 'fileutils'
+require './lib/wraith'
 
-require 'wraith_manager'
+Hoe.plugin :newgem
+# Hoe.plugin :website
+# Hoe.plugin :cucumberfeatures
 
-@wraith_manager = WraithManager.new('config')
-
-task :config, [:args] do |t, args|
-  args.with_defaults(:args => "config")
-  @wraith_manager = WraithManager.new("#{args[:args]}")
-  Rake::Task["default"].invoke
+# Generate all the Rake tasks
+# Run 'rake -T' to see list of generated tasks (from gem root directory)
+$hoe = Hoe.spec 'wraith' do
+  self.developer 'Philipp Bergsmann', 'p.bergsmann@opendo.at'
+  self.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
+  self.rubyforge_name       = self.name # TODO this is default value
+  self.extra_deps         = [['image_size','>= 1.1.3'], ['pry','>= 0.9.12.2'], ['anemone', '0.7.2'], ['robotex', '>= 1.0.0']]
+  self.urls = ["http://google.com"]
+  self.version = "0.0.7"
 end
 
-task :default => [:config, :reset_shots_folder, :check_for_paths, :save_images, :crop_images, :compare_images, :generate_thumbnails, :generate_gallery] do
-  puts 'Done!';
-end
+require 'newgem/tasks'
+Dir['tasks/**/*.rake'].each { |t| load t }
 
-task :compare_images do
-  @wraith_manager.compare_images
-end
-
-task :reset_shots_folder do
-  @wraith_manager.reset_shots_folder
-end
-
-task :check_for_paths do
-  @wraith_manager.check_for_paths
-end
-
-task :save_images do
-  @wraith_manager.save_images
-end
-
-task :crop_images do
-  @wraith_manager.crop_images
-end
-
-task :generate_thumbnails do
-  @wraith_manager.generate_thumbnails
-end
-
-task :generate_gallery do
-  sh "ruby create_gallery.rb #{@wraith_manager.directory}"
-end
+# TODO - want other tests/tasks run by default? Add them to the list
+# remove_task :default
+# task :default => [:spec, :features]
