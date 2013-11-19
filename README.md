@@ -1,3 +1,7 @@
+**This is a fork of BBC-News/wraith which wraps the code into an executable gem.**
+
+**Attention: This is alpha-software - use at your own risk!***
+
 # Wraith
 
  * Website: http://responsivenews.co.uk
@@ -27,9 +31,9 @@ On Mac OS X, the best way to install dependencies is if you have [homebrew](http
 
     brew install imagemagick
     brew install phantomjs
-    
+
 ### Windows
-On Windows it's important to install ImageMagick from the binary found [here](http://www.imagemagick.org/script/binary-releases.php#windows). 
+On Windows it's important to install ImageMagick from the binary found [here](http://www.imagemagick.org/script/binary-releases.php#windows).
 This will ensure that ImageMagick is listed first in your PATH.
 
 To check your path after installing, open a command line window and type:
@@ -42,7 +46,7 @@ This will return a list of executables in you PATH separated by semi-colons ;
 
 If ImageMagick is in your path but not listed first you can edit your path by following the instructions [here](http://geekswithblogs.net/renso/archive/2009/10/21/how-to-set-the-windows-path-in-windows-7.aspx)
 
-If ImageMagick is not in your PATH at all but you have it installed you will need to add it in. Follow the instructions from the link above and add in the path to where you have ImageMagick installed. For example C:\Program Files\ImageMagick-6.8.7-Q16; 
+If ImageMagick is not in your PATH at all but you have it installed you will need to add it in. Follow the instructions from the link above and add in the path to where you have ImageMagick installed. For example C:\Program Files\ImageMagick-6.8.7-Q16;
 Make sure the version number and location are correct for your system.
 
 ### Ubuntu
@@ -59,22 +63,15 @@ And then download the PhantomJS binary package from
 
 Open terminal and run
 
-    git clone https://github.com/BBC-News/wraith
+    git clone https://github.com/phbergsmann/wraith
 
 You can then run the following inside the Wraith directory:
-    
-    bundle install
 
-If you don't have bundler installed, install it :
+    rake package
 
-    gem install bundler
+After the package is created:
 
-
-Alternatively you can download the install script via curl, this will not create a git repo though.    
-    
-    curl -fsSL https://raw.github.com/bbc-news/wraith/go/install | bash
-    cd wraith
-    bundle install    
+    gem install pkg/wraith-0.0.7.gem
 
 ## Config
 
@@ -133,24 +130,9 @@ For example to tell PhantomJS to ignore SSL errors:
 phantomjs_options: "--ignore-ssl-errors=true"
 ```
 
-## Using Wraith
+## Gem usage
 
-If you are new to ruby, rake and PhantomJS, [here is a great screencast](http://www.youtube.com/watch?v=gE_19L0l2q0) about how to use Wraith by [Kevin Lamping](https://twitter.com/klamping)
-
-There are two ways of using Wraith, the fastest is to simply type rake.
-
-```sh
-rake
-```
-
-You may want to deal with multiple config files so you can compare different pages, different sites or different viewports.  In order to handle this, you can pass in a different config file by typing the following into terminal.  The default is config.yaml, so even if you don't pass a file in, it will still run.  If you have deleted config.yaml, make sure you are inside the `configs` directory before running the command.
-
-```sh
-rake config[config_name]
-```
-
-On Windows before running the rake command you will need to make a small edit to the wraith.rb file.
-Locate lines 60 and 70 and switch the commenting as described.
+`wraith -c PATH_TO_CONFIGURATION`
 
 ## Output
 
@@ -174,41 +156,9 @@ If you want to add functionality to this project, pull requests are welcome.
 
 **Please raise any issues with this project as a GitHub issue.**
 
-## Running Tests
-
-    rspec
-
-## Changelog - updated 13/11/13
-    Merge pull request #59 from lewisnyman/master
-    Merge pull request #55 from BBC-News/gallery_fix
-    Merge pull request #51 from boldfacedesign/master
-    Merge pull request #53 from BBC-News/browser_option
-    Merge pull request #50 from nikai3d/patch-1
-    Merge pull request #49 from boldfacedesign/master
-    Merge pull request #44 from rupl/master
-    Merge pull request #46 from BBC-News/different_snap_file
-    Merge pull request #41 from BBC-News/new-config
-    Merge pull request #40 from tiemevanveen/master
-    Merge pull request #36 from thingsinjars/patch-1
-    Merge pull request #37 from thingsinjars/patch-2
-    Merge pull request #34 from malengrin/master
-    Merge pull request #33 from hoguej/feature/point_directly_at_install_script
-    Merge pull request #22 from doryphores/phantomjs_options
-    Merge pull request #27 from reggieb/code_tidy
-    Merge pull request #24 from hoguej/feature/unit_tests
-    Merge pull request #21 from doryphores/sort_files_before_compare
-    Merge pull request #13 from BBC-News/crop-images
-    Merge pull request #18 from ecometrica/gallery
-    Merge pull request #15 from timabell/move-data-file
-    Merge pull request #14 from timabell/unnamed-paths
-    Merge pull request #5 from BBC-News/typekit-fix
-    Merge pull request #8 from jaredly/patch-1
-    Merge pull request #2 from Kami/fix_ruby_compatibility
-    Merge pull request #1 from BBC-News/freedom
-
 ## License
 
-Wraith is available to everyone under the terms of the Apache 2.0 open source license. 
+Wraith is available to everyone under the terms of the Apache 2.0 open source license.
 Take a look at the LICENSE file in the code.
 
 ## Credits
